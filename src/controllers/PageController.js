@@ -4,13 +4,13 @@
  * A simple page is a page that does not contain many business logic.
  */
 
-
-import menuItems from "../data/navigation.js";
 import userData from "../data/user.js";
 
 import NavigationItem from "../models/NavigationItem.js";
 
 export const home = async (req, res) => {
+  const menuItems = await NavigationItem.query();
+
   const pageData = {
     title: "Home",
     content: `
