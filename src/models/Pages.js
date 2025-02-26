@@ -5,9 +5,9 @@ import { Model } from "objection";
 Model.knex(knexConfig);
 
 // define the NavigationItem model
-class User extends Model {
+export default class Page extends Model {
   static get tableName() {
-    return "users";
+    return "pages";
   }
 
   static get idColumn() {
@@ -17,15 +17,14 @@ class User extends Model {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["firstname", "lastname", "bio"],
+      required: ["title", "slug"],
       properties: {
         id: { type: "integer" },
-        firstname: { type: "string", minLength: 1, maxLength: 255 },
-        lastname: { type: "string", minLength: 1, maxLength: 255 },
-        bio: { type: "text", minLength: 1 },
+        title: { type: "string", minLength: 1, maxLength: 255 },
+        slug: { type: "string", minLength: 1, maxLength: 255 },
+        content: { type: "string" },
+        is_homepage: { type: "boolean" },
       },
     };
   }
 }
-
-export default User;

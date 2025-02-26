@@ -6,19 +6,19 @@
 
 import NavigationItem from "../models/NavigationItem.js";
 import User from "../models/User.js";
+import Page from "../models/Pages.js";
 
 export const home = async (req, res) => {
-
   const menuItems = await NavigationItem.query();
   const userData = await User.query().findById(1);
-
-  const pageData = {
-    title: "Home",
-    content: `
-      <p>Welcome to our website. We are a small company that does great things!</p>
-      <p>Feel free to browse our site and learn more about us.</p>
-    `,
-  };
+  const pageData = await Page.query().findOne({ is_homepage: true });
+  // const pageData = {
+  //   title: "Home",
+  //   content: `
+  //     <p>Welcome to our website. We are a small company that does great things!</p>
+  //     <p>Feel free to browse our site and learn more about us.</p>
+  //   `,
+  // };
 
   res.render("pages/home", {
     ...pageData,
@@ -29,14 +29,15 @@ export const home = async (req, res) => {
 
 export const about = async (req, res) => {
   const menuItems = await NavigationItem.query();
-  const pageData = {
-    title: "About Us",
-    content: `
-      <p>We are a small company that does great things!</p>
-      <p>If you would like to drink the best coffee in the world, you are in the right place.</p>
-      <p>Our coffee is made from the best beans in the world and is prepared by the best baristas.</p>
-    `,
-  };
+  const pageData = await Page.query().findOne({ slug: "about-us" });
+  // const pageData = {
+  //   title: "About Us",
+  //   content: `
+  //     <p>We are a small company that does great things!</p>
+  //     <p>If you would like to drink the best coffee in the world, you are in the right place.</p>
+  //     <p>Our coffee is made from the best beans in the world and is prepared by the best baristas.</p>
+  //   `,
+  // };
   res.render("pages/default", {
     ...pageData,
     menuItems,
@@ -45,17 +46,18 @@ export const about = async (req, res) => {
 
 export const contact = async (req, res) => {
   const menuItems = await NavigationItem.query();
-  const pageData = {
-    title: "Contact",
-    content: `
-      <p>Feel free to contact us at:</p>
-      <p>Phone: 123-456-7890</p>
-      <p>Email:
-        <a href="mailto:example@example.com">john@doe.be</a>
-      </p>
-      <p>And some advice: "Don't drink and code!"</p>
-    `,
-  };
+  const pageData = await Page.query().findOne({ slug: "contact" });
+  // const pageData = {
+  //   title: "Contact",
+  //   content: `
+  //     <p>Feel free to contact us at:</p>
+  //     <p>Phone: 123-456-7890</p>
+  //     <p>Email:
+  //       <a href="mailto:example@example.com">john@doe.be</a>
+  //     </p>
+  //     <p>And some advice: "Don't drink and code!"</p>
+  //   `,
+  // };
   res.render("pages/default", {
     ...pageData,
     menuItems,
